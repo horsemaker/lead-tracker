@@ -1,5 +1,6 @@
 const inputEl = document.getElementById('input-el')
 const inputBtn = document.getElementById('input-btn')
+const deleteBtn = document.getElementById('delete-btn')
 const ulEl = document.getElementById('ul-el')
 
 // localStorage.clear()
@@ -42,5 +43,11 @@ function saveLead() {
   }
 }
 
+function deleteLeads() {
+  localStorage.setItem('myLeads', "[]")
+  renderLeads()
+}
+
+deleteBtn.addEventListener('click', deleteLeads)
 inputBtn.addEventListener('click', saveLead)
 renderLeads()
