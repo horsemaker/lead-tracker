@@ -3,11 +3,9 @@ const inputBtn = document.getElementById('input-btn')
 const ulEl = document.getElementById('ul-el')
 
 // localStorage.clear()
-// let myLeads = []
 
 function renderLeads() {
   let leadsFromLocalStorage = JSON.parse(localStorage.getItem('myLeads'))
-//   console.log(leadsFromLocalStorage)
   var listItems = ''
   for (let i = 0; i < leadsFromLocalStorage.length; i++) {
     listItems += `
@@ -29,17 +27,19 @@ function renderLeads() {
 // }
 
 function saveLead() {
-  if (localStorage.getItem('myLeads')) {
-    let leadsFromLocalStorage = JSON.parse(localStorage.getItem('myLeads'))
-    leadsFromLocalStorage.push(inputEl.value)
-    localStorage.setItem('myLeads', JSON.stringify(leadsFromLocalStorage))
+  if (inputEl.value) {
+    if (localStorage.getItem('myLeads')) {
+      let leadsFromLocalStorage = JSON.parse(localStorage.getItem('myLeads'))
+      leadsFromLocalStorage.push(inputEl.value)
+      localStorage.setItem('myLeads', JSON.stringify(leadsFromLocalStorage))
+    } else {
+      localStorage.setItem('myLeads', JSON.stringify(Array(inputEl.value)))
+    }
+    inputEl.value = ''
+    renderLeads()
   } else {
-    // myLeads.push(inputEl.value)
-    // localStorage.setItem('myLeads', JSON.stringify(myLeads))
-    localStorage.setItem('myLeads', JSON.stringify(Array(inputEl.value)))
+    return
   }
-  inputEl.value = ''
-  renderLeads()
 }
 
 inputBtn.addEventListener('click', saveLead)
